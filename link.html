@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Purchase Instagram Followers - SocialBoost</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/link.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="logo">
+          <i class="fas fa-rocket"></i>
+          <span>AvijitFreeSub</span>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Testimonials</a></li>
+            <li><a href="#">Support</a></li>
+          </ul>
+        </nav>
+        <div class="header-btns">
+          <!-- <button class="btn btn-outline">Log In</button>
+          <button class="btn btn-primary">Sign Up</button> -->
+          <button class="theme-toggle" id="themeToggle">
+            <i class="fas fa-moon"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <div class="container">
+          <div class="purchase-card">
+            <div class="purchase-header">
+              <img src="./images/instagram.png" alt="" width="80" />
+              <h2>Instagram Followers</h2>
+            </div>
+            <form class="purchase-body">
+              <div class="service-info">
+                <div class="service-name">10K Instagram Followers</div>
+                <div class="service-price">₹</div>
+              </div>
+
+              <div class="form-group">
+                <label for="profileLink"
+                  >Paste your Instagram profile link</label
+                >
+                <input
+                  type="url"
+                  class="form-control"
+                  id="profileLink"
+                  required
+                  placeholder="https://instagram.com/yourprofile"
+                />
+                <p class="form-help">
+                  Make sure your profile is public to receive followers
+                </p>
+              </div>
+
+              <div class="action-buttons">
+                <a
+                  href="#"
+                  type="button"
+                  class="btn btn-primary"
+                  id="confirmBtn"
+                  style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    text-align: center;
+                    font-weight: 700;
+                  "
+                >
+                  Confirm & Continue
+                </a>
+                <a
+                  href="index.html"
+                  class="btn btn-secondary"
+                  style="
+                    background-color: #dfdddda9;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: 700;
+                  "
+                  id="cancelBtn"
+                >
+                  Cancel
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <p>&copy; 2025 Avijit Free Sub. All rights reserved.</p>
+      </footer>
+    </div>
+
+    <script src="./js/link.js"></script>
+    <script src="./js/services.js"></script>
+    <script>
+      // Get ID from URL
+      const params = new URLSearchParams(window.location.search);
+      const id = parseInt(params.get("id"), 10);
+
+      // Find matching service
+      const service = services.find((s) => s.id === id);
+
+      if (service) {
+        document.querySelector(".purchase-header img").src = service.img;
+        document.querySelector(".purchase-header h2").textContent =
+          service.title;
+        document.querySelector(".service-name").textContent = service.title;
+        document.querySelector(".service-price").textContent = service.price;
+      } else {
+        document.querySelector(".purchase-card").innerHTML =
+          "<p style='padding:20px;color:red;font-weight:600;'>Invalid Service Selected</p>";
+      }
+
+      // Handle Confirm & Continue button
+      document
+        .getElementById("confirmBtn")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+
+          const profileLink = document
+            .getElementById("profileLink")
+            .value.trim();
+
+          if (!profileLink) {
+            alert("Please paste your Instagram profile link.");
+            return;
+          }
+
+          // Build query string for payment.html
+          const query = new URLSearchParams({
+            id: service.id,
+            title: service.title,
+            price: service.price,
+            img: service.img,
+            profile: profileLink,
+          }).toString();
+
+          window.location.href = `payment.html?${query}`;
+        });
+    </script>
+  </body>
+</html>

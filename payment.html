@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Complete Payment - SocialBoost</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+      /* Main Content */
+      .main-content {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 0;
+      }
+
+      .payment-card {
+        background: var(--card-bg);
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 500px;
+        overflow: hidden;
+      }
+
+      .payment-header {
+        background: linear-gradient(
+          90deg,
+          var(--primary) 0%,
+          var(--secondary) 100%
+        );
+        color: white;
+        padding: 2rem;
+        text-align: center;
+        position: relative;
+      }
+
+      .payment-header i {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .payment-header h2 {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 800;
+        font-size: 1.8rem;
+      }
+
+      .timer {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-weight: 600;
+        backdrop-filter: blur(10px);
+      }
+
+      .timer.expiring {
+        animation: pulse 1s infinite;
+        background: var(--danger);
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .payment-body {
+        padding: 2rem;
+      }
+
+      .amount-display {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .amount-label {
+        font-size: 1rem;
+        color: var(--text-light);
+        margin-bottom: 0.5rem;
+      }
+
+      .amount {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary);
+      }
+
+      .qr-section {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .qr-code {
+        width: 200px;
+        height: 200px;
+        background: #f5f5f5;
+        margin: 0 auto 1.5rem;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .qr-code img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .qr-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+        color: var(--text-light);
+      }
+
+      .qr-placeholder i {
+        font-size: 3rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .payment-instructions {
+        background: var(--light);
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin-bottom: 2rem;
+      }
+
+      .payment-instructions h3 {
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+        color: var(--text-dark);
+      }
+
+      .payment-instructions ol {
+        padding-left: 1.5rem;
+        color: var(--text-light);
+      }
+
+      .payment-instructions li {
+        margin-bottom: 0.5rem;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .action-buttons .btn {
+        flex: 1;
+        padding: 0.8rem;
+      }
+
+      /* Timeout Modal */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal-content {
+        background: var(--card-bg);
+        padding: 2rem;
+        border-radius: 15px;
+        text-align: center;
+        max-width: 400px;
+        width: 90%;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      .modal-icon {
+        font-size: 4rem;
+        color: var(--danger);
+        margin-bottom: 1rem;
+      }
+
+      .modal h3 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+        color: var(--danger);
+      }
+
+      .modal p {
+        margin-bottom: 1.5rem;
+        color: var(--text-light);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .action-buttons {
+          flex-direction: column;
+        }
+
+        .payment-header {
+          padding: 1.5rem;
+        }
+
+        .payment-body {
+          padding: 1.5rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .qr-code {
+          width: 180px;
+          height: 180px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="logo">
+          <i class="fas fa-rocket"></i>
+          <span>AvijitFreeSub</span>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Testimonials</a></li>
+            <li><a href="#">Support</a></li>
+          </ul>
+        </nav>
+        <div class="header-btns">
+          <!-- <button class="btn btn-outline">Log In</button>
+          <button class="btn btn-primary">Sign Up</button> -->
+          <button class="theme-toggle" id="themeToggle">
+            <i class="fas fa-moon"></i>
+          </button>
+        </div>
+      </header>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="container">
+        <div class="payment-card">
+          <div class="payment-header">
+            <i class="fas fa-qrcode"></i>
+            <h2 class="payment-service-title">QR Scan Payment</h2>
+            <div class="timer" id="timer">5:00</div>
+          </div>
+          <div class="payment-body">
+            <div class="amount-display">
+              <div class="amount-label">Amount to Pay</div>
+              <div class="amount payment-service-price">
+                <span id="amount" class="service-price"></span>
+              </div>
+            </div>
+
+            <div class="qr-section">
+              <div class="qr-code">
+                <div id="qrcode"></div>
+              </div>
+              <p>Scan to Pay using Paytm / PhonePe / UPI</p>
+              <p>
+                For:
+                <span class="profile-link">pasted profile link show here</span>
+              </p>
+            </div>
+
+            <div class="payment-instructions">
+              <h3>Payment Instructions</h3>
+              <ol>
+                <li>
+                  Open your UPI payment app (Paytm, PhonePe, Google Pay, etc.)
+                </li>
+                <li>Tap on Scan QR Code</li>
+                <li>Point your camera at the QR code shown above</li>
+                <li>Confirm the amount and complete the payment</li>
+              </ol>
+            </div>
+
+            <div class="action-buttons">
+              <button class="btn btn-success" id="completeBtn">
+                <i class="fas fa-check-circle"></i> Payment Complete
+              </button>
+              <button class="btn btn-outline" id="cancelBtn">
+                <i class="fas fa-times-circle"></i> Cancel Payment
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeout Modal -->
+    <div class="modal" id="timeoutModal">
+      <div class="modal-content">
+        <div class="modal-icon">
+          <i class="fas fa-exclamation-circle"></i>
+        </div>
+        <h3>Payment Timeout</h3>
+        <p>
+          The payment session has expired. Please initiate the payment process
+          again.
+        </p>
+        <button class="btn btn-primary" id="modalOkBtn">OK</button>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2025 Avijit Free Sub. All rights reserved.</p>
+    </footer>
+
+    <script src="./js/services.js"></script>
+    <script src="./js/app.js"></script>
+    <script src="./js/payment.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <script>
+      // Get URL parameters
+      const params = new URLSearchParams(window.location.search);
+      const price = params.get("price") || "0";
+
+      // Populate the amount
+      const amountElement = document.getElementById("amount");
+      amountElement.textContent = price;
+    </script>
+  </body>
+</html>
