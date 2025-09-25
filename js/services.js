@@ -6,7 +6,7 @@ const services = [
     price: "₹ 150",
     desc: "High-quality real followers for your Instagram profile with instant delivery.",
     img: "images/instagram.png",
-    qrcode: "images/qr1.png",
+    qrcode: "images/qr150.jpg",
   },
   {
     id: 2,
@@ -14,7 +14,7 @@ const services = [
     price: "₹ 60",
     desc: "Boost your posts with real likes from active Instagram users.",
     img: "images/insta-post.png",
-    qrcode: "images/qr2.png",
+    qrcode: "images/qr60.jpg",
   },
   {
     id: 3,
@@ -22,7 +22,7 @@ const services = [
     price: "₹ 100",
     desc: "Boost your reel views with real views from active Instagram users.",
     img: "images/insta-reels.png",
-    qrcode: "images/qr3.png",
+    qrcode: "images/qr100.jpg",
   },
   {
     id: 4,
@@ -30,7 +30,7 @@ const services = [
     price: "₹ 49",
     desc: "Get instagram blue tick with real followers.",
     img: "images/insta-blue-tick.png",
-    qrcode: "images/qr4.png",
+    qrcode: "images/qr49.jpg",
   },
   {
     id: 5,
@@ -38,7 +38,7 @@ const services = [
     price: "₹ 100",
     desc: "Grow your YouTube channel with real subscribers.",
     img: "images/youtube.png",
-    qrcode: "images/qr5.png",
+    qrcode: "images/qr100.jpg",
   },
   {
     id: 6,
@@ -46,7 +46,7 @@ const services = [
     price: "₹ 50",
     desc: "Boost your YouTube views with real subscribers.",
     img: "images/youtube-views.png",
-    qrcode: "images/qr6.png",
+    qrcode: "images/qr50.jpg",
   },
   {
     id: 7,
@@ -54,7 +54,7 @@ const services = [
     price: "₹ 100",
     desc: "Get real TikTok followers to increase your influence.",
     img: "images/tik-tok.png",
-    qrcode: "images/qr7.png",
+    qrcode: "images/qr100.jpg",
   },
   {
     id: 8,
@@ -62,7 +62,7 @@ const services = [
     price: "₹ 150",
     desc: "Get full monetize package.",
     img: "images/rupee.png",
-    qrcode: "images/qr7.png",
+    qrcode: "images/qr150.jpg",
   },
 ];
 
