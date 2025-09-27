@@ -64,6 +64,32 @@ const services = [
     img: "images/rupee.png",
     qrcode: "images/qr150.jpg",
   },
+    {
+    id: 9,
+    title: "Facebook 10k followers",
+    price: "₹ 150",
+    desc: "Get fb 10k followers package.",
+    img: "images/facebook.png",
+    qrcode: "images/qr150.jpg",
+  },
+
+      {
+    id: 10,
+    title: "Facebook 1k followers",
+    price: "₹ 100",
+    desc: "Get fb 1k followers package.",
+    img: "images/facebook.png",
+    qrcode: "images/qr100.jpg",
+  },
+
+        {
+    id: 11,
+    title: "Facebook full monetize package",
+    price: "₹ 150",
+    desc: "Get fb full monetize package.",
+    img: "images/facebook.png",
+    qrcode: "images/qr150.jpg",
+  },
 ];
 
 // Get container
